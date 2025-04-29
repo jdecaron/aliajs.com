@@ -1,36 +1,95 @@
 ---
-title: Welcome to Starlight
+title: AliaJS  
 description: Get started building your docs site with Starlight.
 template: splash
-hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
-  actions:
-    - text: Example Guide
-      link: /guides/example/
-      icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
-      variant: minimal
+pagefind: false
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
 
-## Next steps
+<h2 style="text-align:center;">Embracing <span style="color:rgb(216 59 210)">Open</span> 🤗 Protocols & Resilient Systems</h2>
+<br/>
+<div style="display: flex; justify-content: center; flex-flow: wrap;">
+  <div class="bubble-container">
+    <div class="bubble left">We can help you being more agile & resilient with your system's infrastructure ☁️</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container bubble-container-right">
+    <div class="bubble right">Why AliaJS over a proven orchestrator?</div>
+  </div>
+  <div class="bubble-container">
+    <div class="bubble left">Most orchestrators & infrastructure as code tools are too complex for small to medium size projects, they target enterprise clients.</div>
+  </div>
+  <div class="bubble-container">
+    <div class="bubble left"><blockquote>Despite 6 years of progress, Kubernetes is still incredibly complex – Drew Bradstock</blockquote>Article: <a href="https://www.theregister.com/2021/02/25/google_kubernetes_autopilot/" target="_blank">theregister.com/.../kubernetes</a>️</div>
+  </div>
+</div>
+
+<h2 style="text-align:center;">Infrastructure With The Most Popular Programming Language ✨</h2>
+<br/>
+<div style="display: flex; justify-content: center; flex-flow: wrap;">
+  <div class="bubble-container">
+    <div class="bubble left">AliaJS allows y</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container bubble-container-right">
+    <div class="bubble right">What if our frontend team cannot figure out something </div>
+  </div>
+  <div class="bubble-container">
+    <div class="bubble left">Most orchestrators & infrastructure as code tools are too complex for small to medium size projects, their targets are hyperscalers & enterprises.</div>
+  </div>
+</div>
+```js title="deploy.js"
+await retry(async () => {
+  const response = await fetch(`https://${server_name}/404-uc3C6`, {
+    agent: new https.Agent({
+      lookup: function(hostname, options, callback) {
+        callback(undefined, address, 4)
+      }
+    })
+  })
+  if (response.status !== 404) {
+    throw new Error(`Service ${service.name} not responding 404 status`)
+  }
+})
+```
+
+<h2 style="text-align:center;">~~Enterprise~~...✋<br/>👉 <span style="color:rgb(107 217 104)">Organization</span> Resource Planning</h2>
+<br/>
+<div style="display: flex; justify-content: center; flex-flow: wrap;">
+  <div class="bubble-container">
+    <div class="bubble left">Every organizations share the same coordination problems.</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container">
+    <div class="bubble left">Where does this information belongs? Who has access to it? How can we collaborate around it? What is the source of truth? Etc...</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container bubble-container-right">
+    <div class="bubble right">Sounds like a problem our organization have. How can we trust you with this?</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container">
+    <div class="bubble left">We found an open source system for ourserves. We want to democratize this insight to other small & medium organizations like yours.</div>
+  </div>
+</div>
+
+### Launched Projects
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="AliaJS" icon="right-arrow">
+		Cloud infrastructure orchestrator writtent to target JavaScript runtimes like NodeJS.
+
+    https://aliajs.com
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Rollance" icon="right-arrow" href="/sauce">
+		Manufacturing company, focused on innovative manufacturing.
+
+    https://rollance.com
 	</Card>
 </CardGrid>
+
+<h2 style="text-align:center;">More <span style="color:rgb(244 66 80)">Magic</span> 🪄 to Come, Let's Collaborate 👇</h2>
+
+<LinkButton href="/getting-started/">Let's Meet ☕️</LinkButton>
+
