@@ -11,35 +11,37 @@ import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
 <br/>
 <div style="display: flex; justify-content: center; flex-flow: wrap;">
   <div class="bubble-container">
-    <div class="bubble left">We can help you being more agile & resilient with your system's infrastructure ☁️</div>
+    <div class="bubble left">We can help you to be more agile & resilient with your system's infrastructure ☁️</div>
   </div>
   <div class="break"></div>
   <div class="bubble-container bubble-container-right">
     <div class="bubble right">Why AliaJS over a proven orchestrator?</div>
   </div>
+  <div class="break"></div>
   <div class="bubble-container">
-    <div class="bubble left">Most orchestrators & infrastructure as code tools are too complex for small to medium size projects, they target enterprise clients.</div>
+    <div class="bubble left">Most orchestrators & infrastructure as code tools are too complex for small to medium size projects, they target the enterprise.</div>
   </div>
+  <div class="break"></div>
   <div class="bubble-container">
     <div class="bubble left"><blockquote>Despite 6 years of progress, Kubernetes is still incredibly complex – Drew Bradstock</blockquote>Article: <a href="https://www.theregister.com/2021/02/25/google_kubernetes_autopilot/" target="_blank">theregister.com/.../kubernetes</a>️</div>
   </div>
 </div>
 
-<h2 style="text-align:center;">Infrastructure With The Most Popular Programming Language ✨</h2>
+<h2 style="text-align:center;">Infrastructure With The Most <span style="color:rgb(107 217 104)">Stable</span> Programming Language ✨</h2>
 <br/>
 <div style="display: flex; justify-content: center; flex-flow: wrap;">
   <div class="bubble-container">
-    <div class="bubble left">AliaJS allows y</div>
+    <div class="bubble left">AliaJS enables you to write infrastructure code in JavaScript. Which allows you to test & build features with language-specific features like loops, functions, etc.</div>
   </div>
   <div class="break"></div>
   <div class="bubble-container bubble-container-right">
-    <div class="bubble right">What if our frontend team cannot figure out something </div>
+    <div class="bubble right">You have any real use case as an example?</div>
   </div>
+  <div class="break"></div>
   <div class="bubble-container">
-    <div class="bubble left">Most orchestrators & infrastructure as code tools are too complex for small to medium size projects, their targets are hyperscalers & enterprises.</div>
+    <div class="bubble left">Like this loop that tests the validity of the certificate before it receives the production's network interface:</div>
   </div>
-</div>
-```js title="deploy.js"
+```js
 await retry(async () => {
   const response = await fetch(`https://${server_name}/404-uc3C6`, {
     agent: new https.Agent({
@@ -53,32 +55,13 @@ await retry(async () => {
   }
 })
 ```
-
-<h2 style="text-align:center;">~~Enterprise~~...✋<br/>👉 <span style="color:rgb(107 217 104)">Organization</span> Resource Planning</h2>
-<br/>
-<div style="display: flex; justify-content: center; flex-flow: wrap;">
-  <div class="bubble-container">
-    <div class="bubble left">Every organizations share the same coordination problems.</div>
-  </div>
-  <div class="break"></div>
-  <div class="bubble-container">
-    <div class="bubble left">Where does this information belongs? Who has access to it? How can we collaborate around it? What is the source of truth? Etc...</div>
-  </div>
-  <div class="break"></div>
-  <div class="bubble-container bubble-container-right">
-    <div class="bubble right">Sounds like a problem our organization have. How can we trust you with this?</div>
-  </div>
-  <div class="break"></div>
-  <div class="bubble-container">
-    <div class="bubble left">We found an open source system for ourserves. We want to democratize this insight to other small & medium organizations like yours.</div>
-  </div>
 </div>
 
-### Launched Projects
+<h2 style="text-align:center;">Active Projects By <a href="https://linkedin.com/in/jdecaron">@jdecaron</a></h2>
 
 <CardGrid stagger>
 	<Card title="AliaJS" icon="right-arrow">
-		Cloud infrastructure orchestrator writtent to target JavaScript runtimes like NodeJS.
+		Infrastructe as code with NodeJS 🤖
 
     https://aliajs.com
 	</Card>
@@ -91,5 +74,13 @@ await retry(async () => {
 
 <h2 style="text-align:center;">More <span style="color:rgb(244 66 80)">Magic</span> 🪄 to Come, Let's Collaborate 👇</h2>
 
-<LinkButton href="/getting-started/">Let's Meet ☕️</LinkButton>
+<div style="text-align:center;">
+<LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's Meet 👋️</LinkButton>
+</div>
 
+<script type="text/javascript">{`
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", "30min", {origin:"https://cal.com"});
+
+  Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+`}</script>

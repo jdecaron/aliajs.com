@@ -54,7 +54,7 @@
         var(--_p) 100%/var(--t) var(--t) no-repeat,
         linear-gradient(#000 0 0) padding-box;
     /* background: linear-gradient(135deg,#FE6D00,#1384C5) border-box; */
-    background: linear-gradient(135deg,var(--sl-color-accent-low),var(--sl-color-accent)) border-box;
+    background: linear-gradient(135deg,rgb(0 107 230),rgb(57 146 255)) border-box;
     color: white;
 }
 .break {
@@ -72,6 +72,26 @@
     --_p: 100%;
     border-bottom-right-radius: 0 0;
     place-self: end;
-    background: linear-gradient(135deg,var(--sl-color-gray-4),var(--sl-color-gray-6)) border-box;
+    background: linear-gradient(135deg,hsl(228 12% 16%),hsl(228 12% 21%)) border-box;
     color: white;
+}
+
+.expressive-code {
+    width: 70%;
+}
+
+.expressive-code .frame pre {
+    border-radius: 2em;
+}
+
+.card.sl-flex {
+    border-radius: 2em;
+}
+
+.bubble a {
+    color: white;
+}
+
+h2 a {
+    text-decoration: none;
 }
