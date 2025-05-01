@@ -5,7 +5,11 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
+        credits: true,
 			  title: 'AliaJS',
+        logo: {
+            src: './public/aliajs-logo.svg',
+        },
         defaultLocale: 'root',
         locales: {
             root: {

@@ -95,3 +95,7 @@
 h2 a {
     text-decoration: none;
 }
+
+.site-title {
+    color: var(--sl-color-white);
+}
