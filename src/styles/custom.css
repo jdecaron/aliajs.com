@@ -1,6 +1,7 @@
 /* Dark mode colors. */
 :root {
-    --sl-text-h2: 5em;
+    --sl-text-h1: 5em;
+    --sl-text-h2: 4.6em;
 	  --sl-color-accent-low: #131e4f;
 	  --sl-color-accent: #3447ff;
 	  --sl-color-accent-high: #b3c7ff;
@@ -12,6 +13,9 @@
 	  --sl-color-gray-5: #353841;
 	  --sl-color-gray-6: #24272f;
 	  --sl-color-black: #17181c;
+    h1 {
+        font-weight: 900;
+    }
     h2 {
         font-weight: 900;
     }
@@ -98,4 +102,23 @@ h2 a {
 
 .site-title {
     color: var(--sl-color-white);
+}
+
+@media (max-aspect-ratio: 1/1) {
+    :root {
+        --sl-text-h1: 3em;
+        --sl-text-h2: 2.8em;
+    }
+    .bubble-container {
+        width: 90%;
+    }
+    .bubble-container-right {
+        width: 90%;
+    }
+    .expressive-code {
+        width: 100%;
+    }
+    h1 {
+        margin-top: .5em;
+    }
 }
