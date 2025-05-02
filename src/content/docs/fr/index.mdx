@@ -1,56 +1,86 @@
 ---
-title: AliaJS
+title: Infrastructe As Code With JavaScript 🤖
 description: Infrastructe as code with JavaScript 🤖
 template: splash
 pagefind: false
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
 
-<h2 style="text-align:center;">Embracing <span style="color:rgb(107 217 104)">Open</span> Protocols & Resilient Systems</h2>
-
-<div class="bubble left">We can help you being more agile with your system infrastructure.</div>
-<div class="bubble right">Is this magic? Why you </div>
-
-<h2 style="text-align:center;">~~Enterprise~~...✋👉 Organization Resource Planning</h2>
-<div class="bubble left">We can help you with the most commons & shared issues accross any organizations: single source of truth for your data & collaboration</div>
-<div class="bubble right">Is this magic? Why you </div>
-- Single source of truth:
-  - Collaboration texts (Content Management System)
-  - Clients (Customer Relationship Management)
-  - Workflows & Process
+<h1 style="text-align:center;">Cultiver les protocoles <span style="color:rgb(216 59 210)">ouverts</span> 🤗 et des systèmes résilients</h1>
 <br/>
-<br/>
-<br/>
-  - From~~ENTERPRISE~~ RESSOURCE PLANNING (ERP) to ANY-SIZE ORGANIZATION SYSTEM (aOS).
-  - Services
-      - DevSecOps agility with [AliaJS](https://aliajs.com/)
-      - Help you host, implement & run an organization resource planning system (ERP). We know every organization needs one. Why? We also know which one is the best one to support you with, you won't be tech-dependant with our choice.
-  - Any organizations need an identity provider to allow actions-movement with its stakeholder-actors; Employees, clients, guests, government, Etc.
-      - Once identified those stakeholders if allowed can access-modify the organization data; Customer relationship, Accounting, Inventory, Etc.
-          - Organization managers can organize-link such data according to your custom needs or through common business structures.
-  - Yes we can help you with that ☝️
-  - 8 bundles left
-      - 99.99% SLA (Service Level Agreement)
-      - 10 hours of development, service & integration.
-          - Unused hours rollover onto the next months, up to a year.
-  - You have a very hard problem you can't solve?
-  - Yes we can also help you with that ☝️
+<div style="display: flex; justify-content: center; flex-flow: wrap;">
+  <div class="bubble-container">
+    <div class="bubble left">AliaJS peut vous aider à être plus agile et résilient avec votre infrastructure de systèmes ☁️</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container bubble-container-right">
+    <div class="bubble right">Pourquoi AliaJS plutôt qu'un orchestrateur éprouvé?</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container">
+    <div class="bubble left">La plupart des outils de gestion d'infrastructure sont trop complexes pour les petits à moyens projets, ils ciblent les grandes entreprises.</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container">
+    <div class="bubble left"><blockquote>Malgré 6 ans de progrès, Kubernetes reste incroyablement complexe – Drew Bradstock</blockquote>Article: <a href="https://www.theregister.com/2021/02/25/google_kubernetes_autopilot/" target="_blank">theregister.com/.../kubernetes</a>️</div>
+  </div>
+</div>
 
-## Launched-Running Projects
+<h2 style="text-align:center;">Infrastructure avec le language de programmation le plus  <span style="color:rgb(107 217 104)">stable</span> ✨</h2>
+<br/>
+<div style="display: flex; justify-content: center; flex-flow: wrap;">
+  <div class="bubble-container">
+    <div class="bubble left">AliaJS permet d’écrire du code d’infrastructure en JavaScript. Ce qui permet de tester et bâtir avec des fonctionnalités de langage de programmation comme des boucles, fonctions, etc.</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container bubble-container-right">
+    <div class="bubble right">Avez-vous un cas réel d’utilisation en exemple?</div>
+  </div>
+  <div class="break"></div>
+  <div class="bubble-container">
+    <div class="bubble left">Cette boucle confirme la validité des certificats avant que l’instance reçoive l’interface réseau de production:</div>
+  </div>
+```js wrap
+await retry(async () => {
+  const response = await fetch(`https://${server_name}/404-uc3C6`, {
+    agent: new https.Agent({
+      lookup: function(hostname, options, callback) {
+        callback(undefined, address, 4)
+      }
+    })
+  })
+  if (response.status !== 404) {
+    throw new Error(`Service ${service.name} not responding 404 status`)
+  }
+})
+```
+</div>
+
+<h2 style="text-align:center;">Projects actifs par <a href="https://linkedin.com/in/jdecaron">@jdecaron</a></h2>
 
 <CardGrid stagger>
 	<Card title="AliaJS" icon="right-arrow">
-		Cloud infrastructure orchestrator writtent to target JavaScript runtimes like NodeJS.
+		infrastructure en tant que code avec JavaScript 🤖
 
     https://aliajs.com
 	</Card>
 	<Card title="Rollance" icon="right-arrow" href="/sauce">
-		Manufacturing company, highly focused on innovative manufacturing that cares a lot about:
-    - Quality Control
-    - Operating at a Human Scale
-    - Sustainability & the Circular Economy
+		Compagnie manufacturière avec un focus sur l’agilité et le 無駄.
 
     https://rollance.com
 	</Card>
 </CardGrid>
+
+<h2 style="text-align:center;">Plus de <span style="color:rgb(244 66 80)">magie</span> 🪄 à venir</h2>
+
+<div style="text-align:center;">
+<LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Rencontrons-Nous 👋️️</LinkButton>
+</div>
+
+<script type="text/javascript">{`
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", "30min", {origin:"https://cal.com"});
+
+  Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+`}</script>

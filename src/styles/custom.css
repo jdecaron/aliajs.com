@@ -104,6 +104,15 @@ h2 a {
     color: var(--sl-color-white);
 }
 
+.sl-link-button.primary {
+    background: rgb(0 107 230);
+    background-color: rgb(0 107 230);
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
 @media (max-aspect-ratio: 1/1) {
     :root {
         --sl-text-h1: 3em;
