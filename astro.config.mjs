@@ -5,7 +5,6 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-        credits: true,
 			  title: 'AliaJS',
         logo: {
             src: './public/aliajs-logo.svg',
@@ -28,7 +27,6 @@ export default defineConfig({
           { icon: 'email', label: 'Email', href: 'mailto:j@aliajs.com' },
           { icon: 'github', label: 'Github', href: 'https://github.com/jdecaron/aliajs' },
           { icon: 'mastodon', label: 'Mastodon', href: 'https://floss.social/@aliajs' },
-          { icon: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/jdecaron' },
 			],
 		}),
 	],

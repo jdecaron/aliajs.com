@@ -113,12 +113,6 @@ h2 a {
     font-weight: 500;
 }
 
-@layer starlight.utils {
-    .sl-hidden.right-group {
-        display: flex;
-    }
-}
-
 @media (max-aspect-ratio: 1/1) {
     :root {
         --sl-text-h1: 3em;
@@ -135,5 +129,12 @@ h2 a {
     }
     h1 {
         margin-top: .5em;
+    }
+
+    .sl-hidden.right-group {
+        display: flex;
+    }
+    starlight-theme-select {
+        display: none;
     }
 }
