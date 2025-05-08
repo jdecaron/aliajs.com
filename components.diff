@@ -1,0 +1,10 @@
+diff --color node_modules/@astrojs/starlight/components/Footer.astro /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.cqE7GBQikU/node_modules/@astrojs/starlight/components/Footer.astro
+14d13
+< 	<Pagination />
+diff --color node_modules/@astrojs/starlight/components/Page.astro /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.cqE7GBQikU/node_modules/@astrojs/starlight/components/Page.astro
+109d108
+< 									<PageTitle />
+112,113d110
+< 								</ContentPanel>
+< 								<ContentPanel>
+Common subdirectories: node_modules/@astrojs/starlight/components/TableOfContents and /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.cqE7GBQikU/node_modules/@astrojs/starlight/components/TableOfContents
