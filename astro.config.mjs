@@ -26,7 +26,7 @@ export default defineConfig({
 			  social: [
           { icon: 'email', label: 'Email', href: 'mailto:j@aliajs.com' },
           { icon: 'github', label: 'Github', href: 'https://github.com/jdecaron/aliajs' },
-          { icon: 'mastodon', label: 'Mastodon', href: 'https://floss.social/@aliajs' },
+          { icon: 'mastodon', label: 'Mastodon', href: 'https://mastodon.social/@jcaron' },
 			],
 		}),
 	],
