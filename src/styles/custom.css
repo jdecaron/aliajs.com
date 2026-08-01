@@ -1,25 +1,3 @@
-/* Dark mode colors. */
-:root {
-    --sl-text-h1: 5em;
-    --sl-text-h2: 4.6em;
-	  --sl-color-accent-low: #131e4f;
-	  --sl-color-accent: #3447ff;
-	  --sl-color-accent-high: #b3c7ff;
-	  --sl-color-white: #ffffff;
-	  --sl-color-gray-1: #eceef2;
-	  --sl-color-gray-2: #c0c2c7;
-	  --sl-color-gray-3: #888b96;
-	  --sl-color-gray-4: #545861;
-	  --sl-color-gray-5: #353841;
-	  --sl-color-gray-6: #24272f;
-	  --sl-color-black: #17181c;
-    h1 {
-        font-weight: 900;
-    }
-    h2 {
-        font-weight: 900;
-    }
-}
 /* Light mode colors. */
 :root[data-theme='light'] {
 	  --sl-color-accent-low: #c7d6ff;
@@ -36,50 +14,6 @@
 	  --sl-color-black: #ffffff;
 }
 
-.bubble-container {
-    width: 60%;
-    justify-content: left;
-    display: flex;
-    flex-flow: wrap;
-}
-.bubble-container-right {
-    width: 60%;
-    justify-content: right;
-}
-.bubble {
-    --r: 1em;  /* the radius */
-    --t: 1.5em; /* the size of the tail */
-    max-width: 400px;
-    padding: 1em;
-    border-inline: var(--t) solid #0000;
-    border-radius: calc(var(--r) + var(--t))/var(--r);
-    mask: 
-        radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%) 
-        var(--_p) 100%/var(--t) var(--t) no-repeat,
-        linear-gradient(#000 0 0) padding-box;
-    /* background: linear-gradient(135deg,#FE6D00,#1384C5) border-box; */
-    background: linear-gradient(135deg,rgb(0 107 230),rgb(57 146 255)) border-box;
-    color: white;
-}
-.break {
-    width: 100%;
-    height: 0;
-}
-.left {
-    --_p: 0;
-    border-bottom-left-radius: 0 0;
-    place-self: start;
-}
-.right {
-    flex-direction: row-reverse;
-    float: right;
-    --_p: 100%;
-    border-bottom-right-radius: 0 0;
-    place-self: end;
-    background: linear-gradient(135deg,hsl(228 12% 16%),hsl(228 12% 21%)) border-box;
-    color: white;
-}
-
 .expressive-code {
     width: 70%;
 }
@@ -92,17 +26,6 @@
     border-radius: 2em;
 }
 
-.bubble a {
-    color: white;
-}
-
-h2 a {
-    text-decoration: none;
-}
-
-.site-title {
-    color: var(--sl-color-white);
-}
 
 .sl-link-button.primary {
     background: rgb(0 107 230);
@@ -117,24 +40,5 @@ h2 a {
     :root {
         --sl-text-h1: 3em;
         --sl-text-h2: 2.8em;
-    }
-    .bubble-container {
-        width: 90%;
-    }
-    .bubble-container-right {
-        width: 90%;
-    }
-    .expressive-code {
-        width: 100%;
-    }
-    h1 {
-        margin-top: .5em;
-    }
-
-    .sl-hidden.right-group {
-        display: flex;
-    }
-    starlight-theme-select {
-        display: none;
     }
 }
