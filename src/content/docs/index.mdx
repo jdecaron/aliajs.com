@@ -1,35 +1,97 @@
 ---
-title: Infrastructe As Code With JavaScript 🤖
-description: Infrastructe as code with JavaScript 🤖
+title: Continous operations, infrastructe as code with JavaScript
+description: Continous operations, infrastructe as code with JavaScript
 template: splash
 pagefind: false
 ---
 
-import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/components';
 
 <div style="display: flex; justify-content: center; flex-flow: wrap;">
+<div>
+  <h1>Continous operations, as simple as possible, but not simpler</h1>
+  <p>Infrastructure as code (JavaScript) on the most modern runtime. A tool to help you get self-autonomous on your systems, platforms, services. Considering agility, security, quality.</p>
+  <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Talk to the founder</LinkButton>
+  </div>
 </div>
 
-<div style="display: flex; justify-content: center; flex-flow: wrap;">
-```js wrap
-await retry(async () => {
-  const response = await fetch(`https://${server_name}/404-uc3C6`, {
-    agent: new https.Agent({
-      lookup: function(hostname, options, callback) {
-        callback(undefined, address, 4)
+<h2>Comparison with other tools</h2>
+<table>
+  <thead>
+    <tr><th></th><th>Pulumi</th><th>Kubernetes</th><th>Coolify</th><th>Terraform</th><th>AliaJS</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Lines of code</td><td>~828K</td><td>~3.57M</td><td>~291K</td><td>~609K</td><td>~2K</td></tr>
+    <tr><td>Dependencies</td><td>330</td><td>250</td><td>353</td><td>375</td><td>9</td></tr>
+    <tr><td>Secure vault</td><td>Pulumi ESC</td><td>No</td><td>No</td><td>No</td><td>Vaultwarden</td></tr>
+    <tr><td>HTTP service</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Languages</td><td>YAML, TypeScript, JavaScript, Python, C# Java</td><td>Docker & Nix config</td><td>HCL, JSON</td><td>No</td><td>JavaScript ES2025</td></tr>
+    <tr><td>Turnkey solution</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No, next coming feature: `socket npx aliajs new n8n`</td></tr>
+  </tbody>
+</table>
+
+<h2>Code examples</h2>
+<Tabs>
+  <TabItem label="Certificate Validity Test">
+    ```js wrap
+    /**
+      Testing three things: nginx reverse proxy, Node.js service, TLS certificate validity,
+      using a test address (new instance) before doing potential breaking DNS records changes.
+      - https://github.com/jdecaron/aliajs/blob/main/src/deploy.js#L236-L253
+    **/
+    await retry(async () => {
+      const response = await new Promise((resolve, reject) => {
+        const req = https.request({
+          host: address,
+          port: 443,
+          path: '/404-uc3C6',
+          method: 'GET',
+          headers: { Host: server_name },
+          servername: server_name,
+        }, resolve)
+        req.on('error', reject)
+        req.end()
+      })
+      response.resume()
+      if (response.statusCode !== 404) {
+        throw new Error(`Service ${service.name} not responding 404 status`)
       }
     })
-  })
-  if (response.status !== 404) {
-    throw new Error(`Service ${service.name} not responding 404 status`)
-  }
-})
-```
-</div>
+    ```
+  </TabItem>
+  <TabItem label="Backup">
+    ```js wrap
+      /*
+        Vaultwarden backup, running vaultwarden docker container backup command,
+        getting the file path, injecting restic S3 secrets, runnning restic backup.
+        - https://github.com/jdecaron/aliajs/blob/main/configurations/instances.js#L26-L30
+      */
+      "backup": [
+        {
+          command: async ({ c }) => {
+            await c.ssh.current({ command: `sudo docker exec vaultwarden /vaultwarden backup` })
+            const backupFile = (await c.ssh.current({ command: `ls -t /vw-data/ | head -n1` })).replace(/\s$/, '')
 
-<h2 style="text-align:center;">Active Projects By <a href="https://linkedin.com/in/jdecaron">JD Caron</a></h2>
+            await c.ssh.current({
+              command: `
+                export AWS_ACCESS_KEY_ID=${process.env.ALIAJS_DEFAULT_S3_ACCESS_KEY_ID};
+                export AWS_SECRET_ACCESS_KEY=${process.env.ALIAJS_DEFAULT_S3_SECRET_ACCESS_KEY};
+                export RESTIC_PASSWORD=${process.env.ALIAJS_VARIABLE_2};
+                restic -r ${process.env.ALIAJS_DEFAULT_S3_URL}/restic backup
+                  --stdin --stdin-filename sauce-production-backup
+                  --tag sauce-production-backup
+                  < /vw-data/${backupFile}`,
+            })
+          }
+        },
+      ],
+    ```
+  </TabItem>
+</Tabs>
 
-<CardGrid stagger>
+<h2>Active projects by <a href="https://linkedin.com/in/jdecaron">JD Caron</a></h2>
+
+<CardGrid>
 	<Card title="AliaJS" icon="right-arrow">
 		Infrastructe as code with JavaScript 🤖
 
@@ -42,11 +104,56 @@ await retry(async () => {
 	</Card>
 </CardGrid>
 
-<h2 style="text-align:center;">More <span style="color:rgb(244 66 80)">Magic</span> 🪄 to Come</h2>
+<h2>Why</h2>
+<div style="width:90%">
+  <h3>Solving a problem</h3>
+  <p>Around september 2018, a service deterioration happened on a popular PaaS (platform as a service). Support said nothing was wrong. I migrated the service to a cloud, slightly automated with Ansible. As an experiment, I asked, what if I had a tool to manage my cloud infrastructure in the same language the project is written with: JavaScript?</p>
+  <div class="blockquote-left-padding">
+  > Every good work of software starts by scratching a developer's personal itch. – Eric S. Raymond
 
-<div style="text-align:center;">
-<LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's Meet 👋️️</LinkButton>
+  > It is incredibly powerful if you solve the problem you actually have yourself. – Tobias Lütke
+
+  > I'm doing a (free) operating system (just a hobby, won't be big and professional like gnu) for 386(486) AT clones. – Linus Torvalds
+
+  > ... look for problems, preferably problems you have yourself. – Paul Graham, "[How to Get Startup Ideas](https://www.paulgraham.com/startupideas.html)"
+  </div>
+  <h3>Reversible and irreversible development</h3>
+  <p>Living in the future means you know that with more security, quality, agility on your deployments, you can leap through a system that allows you to build an reversible environment for things that don't exist yet: ERP's, I wanted that.</p>
+  <div class="blockquote-left-padding">
+    <blockquote>
+    What is good for coding agents is also good for human coders. Coding agents work well because code is reversible — we have Git and can undo mistakes. The real danger comes when agents act on things you can't roll back, like production databases or money, where gullibility becomes a catastrophic problem. – Simon Willison
+    </blockquote>
+  </div>
+  <blockquote>
+  ... changeable, reversible – they’re two-way doors. Type 2 decision ... you don’t have to live with the consequences for that long. – Jeff Bezos
+  </blockquote>
+  <p style="margin-left: 2em;">Composing reversible environments, agentic engineering, as simple as possible code, enables you to be ...</p>
+  <div style="padding-left: 4em;">
+    <blockquote>
+    ... living in the future ... If you're really at the leading edge of a rapidly changing field, there will be things that are obviously missing. – Paul Graham, "[How to Get Startup Ideas](https://www.paulgraham.com/startupideas.html)"
+    </blockquote>
+  </div>
+  <h3>Simple code is good for both humans and agents</h3>
+  <div class="blockquote-left-padding">
+  > This saving is because the agent has to read less code... — Giles Edwards-Alexander, ["The Economic Benefit of Refactoring"](https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html)
+  </div>
 </div>
+
+<h2>Roadmap</h2>
+<CardGrid>
+	<Card title="Turnkey Solution" icon="right-arrow">
+	</Card>
+	<Card title="Hybrid, On-Prem & Cloud" icon="right-arrow">
+	</Card>
+	<Card title="Low Maintenance Platform as a Service" icon="right-arrow">
+	</Card>
+	<Card title="Lower Cost Sleep System" icon="right-arrow">
+	</Card>
+</CardGrid>
+
+
+<h2>Growing the self-hosting community together</h2>
+<LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's collaborate</LinkButton>
 
 <script type="text/javascript">{`
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");

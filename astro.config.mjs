@@ -21,6 +21,7 @@ export default defineConfig({
         ],
         components: {
             ThemeSelect: './src/components/ThemeSelect.astro',
+            ThemeProvider: './src/components/ForceDarkTheme.astro',
         },
         expressiveCode: {
           themes: ['starlight-light'],

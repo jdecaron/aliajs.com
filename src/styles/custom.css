@@ -12,20 +12,63 @@
 	  --sl-color-gray-6: #eceef2;
 	  --sl-color-gray-7: #f5f6f8;
 	  --sl-color-black: #ffffff;
+    --overlay-light-blue: #D5EBF5;
+    --light-purple-5: hsl(255, 85%, 95%);
+    --light-purple-6: hsl(255, 85%, 98%);
+    --light-purple-7: hsl(255, 85%, 99%);
 }
 
 .expressive-code {
-    width: 70%;
+    width: 100%;
 }
 
 .expressive-code .frame pre {
     border-radius: 2em;
 }
 
+.page {
+    background: linear-gradient(215deg, var(--overlay-light-blue), transparent 40%), radial-gradient(var(--overlay-light-blue), transparent 40%) no-repeat -60vw -40vh / 105vw 200vh, radial-gradient(var(--overlay-light-blue), transparent 65%) no-repeat 50% calc(100% + 20rem) / 60rem 30rem
+}
+
+.site-title {
+    color: black !important
+}
+
+blockquote {
+  padding: .85rem;
+  background-color: var(--light-purple-6);
+  width: 80%;
+}
+
+.blockquote-left-padding {
+    padding-left: 2em; 
+}
+
+header {
+    backdrop-filter: blur(16px);
+    background-color: #0000;
+    border-bottom: 1px solid #0000;
+}
+
+table thead th {
+    background-color: var(--light-purple-5);;
+}
+
+table tbody td:first-child {
+    padding-left: .85rem;
+}
+
+table tbody tr {
+    background-color: var(--light-purple-7);;
+}
+
+table tbody tr:nth-child(2n) {
+    background-color: var(--light-purple-6);;
+}
+
 .card.sl-flex {
     border-radius: 2em;
 }
-
 
 .sl-link-button.primary {
     background: rgb(0 107 230);
