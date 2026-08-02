@@ -8,7 +8,22 @@ pagefind: false
 import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
 
 <div style="display: flex; justify-content: center; flex-flow: wrap;">
+<div>
+<h1>Continous operations, as simple as possible, but not simpler</h1>
+<p>Infrastructure as code (JavaScript) on the most modern runtime.</p>
 </div>
+<div><iframe width="560" height="315" src="https://www.youtube.com/embed/AYnvtcfq1e4?si=MSeSEo8av4I4ViU9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+</div>
+
+<h2>Comparison with other tools</h2>
+<table>
+<th><td>Pulumi</td><td>Kubernetes</td><td>Coolify</td><td>Terraform</td><td>AliaJS</td></th>
+<tr><td>Lines of code</td><td>~828K</td><td>~3.57M</td><td>~291K</td><td>~609K</td><td>~2K</td></tr>
+<tr><td>Dependencies</td><td>330</td><td>250</td><td>353</td><td>375</td><td>9</td></tr>
+<tr><td>Secure vault</td><td>Pulumi ESC</td><td>250</td><td>353</td><td>No</td><td>Vaultwarden</td></tr>
+<tr><td>HTTP service</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+<tr><td>Languages</td><td>YAML, TypeScript, JavaScript, Python, C# Java</td><td>Docker & Nix config</td><td>HCL, JSON</td><td>No</td><td>JavaScript ES2025</td></tr>
+</table>
 
 <div style="display: flex; justify-content: center; flex-flow: wrap;">
 ```js wrap
@@ -42,10 +57,27 @@ await retry(async () => {
 	</Card>
 </CardGrid>
 
-<h2 style="text-align:center;">More <span style="color:rgb(244 66 80)">Magic</span> 🪄 to Come</h2>
+<h2 style="text-align:center;">Why AliaJS</h2>
+<p>Around september 2018, a service deterioration happened on a popular PaaS (platform as a service). Support said nothing was wrong. I migrated the service to a cloud, slightly automated with Ansible. As an experiment, I asked, what if I had a tool to manage my cloud infrastructure in the same language the project is written with: JavaScript?</p>
 
+> Every good work of software starts by scratching a developer's personal itch. – Eric S. Raymond  
+
+> It is incredibly powerful if you solve the problem you actually have yourself. – Tobias Lütke  
+
+> I'm doing a (free) operating system (just a hobby, won't be big and professional like gnu) for 386(486) AT clones. – Linus Torvalds  
+
+<h2 style="text-align:center;">Roadmap</h2>
+<CardGrid>
+	<Card title="Turnkey Solution" icon="right-arrow">
+	</Card>
+	<Card title="Low Maintenance Platform as a Service" icon="right-arrow">
+	</Card>
+</CardGrid>
+
+
+<h2 style="text-align:center;">Growing the self-hosting community together</h2>
 <div style="text-align:center;">
-<LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's Meet 👋️️</LinkButton>
+<LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Ask for Help</LinkButton>
 </div>
 
 <script type="text/javascript">{`
