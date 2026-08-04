@@ -1,8 +1,9 @@
 /* Light mode colors. */
 :root[data-theme='light'] {
 	  --sl-color-accent-low: #c7d6ff;
-	  --sl-color-accent: #364bff;
-	  --sl-color-accent-high: #182775;
+	  --sl-color-accent: f;
+	  --sl-color-accent-high: rgb(0 107 230);
+    --sl-color-text-accent: rgb(0 107 230);
 	  --sl-color-white: #17181c;
 	  --sl-color-gray-1: #24272f;
 	  --sl-color-gray-2: #353841;
