@@ -7,13 +7,26 @@ pagefind: false
 
 import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<div style="display: flex; justify-content: center; flex-flow: wrap;">
-<div>
-  <h1>Continous operations, as simple as possible, but not simpler</h1>
-  <p>Infrastructure as code (JavaScript) on the most modern runtime. A tool to help you get self-autonomous on your systems, platforms, services. Considering agility, security, quality.</p>
-  <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Talk to the founder</LinkButton>
+<div id="aliajs-summary-flex">
+  <div id="aliajs-summary">
+    <h1>Continous operations, as simple as possible, but not simpler</h1>
+    <p>Infrastructure as code (JavaScript) on the most modern runtime. A tool to help you get self-autonomous on your systems, platforms, services. Considering agility, security, quality.</p>
+    <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Talk to the founder</LinkButton>
+  </div>
+  <div id="aliajs-video" onclick="window.openAliajsVideo()">
+    <video id="aliajs-video-element" aria-label="AliaJS example usage, deploying an ephemeral ERPNext development environment." muted loop playsinline autoplay preload="metadata" disablepictureinpicture disableremoteplayback draggable="false" poster="/aliajs-720-demo-erpnext-ephemeral-environment.jpg" src="/aliajs-720-demo-erpnext-ephemeral-environment.mp4"></video>
   </div>
 </div>
+
+<dialog id="aliajs-youtube-dialog" aria-label="AliaJS video">
+  <button id="aliajs-youtube-close" type="button" aria-label="Close video">&times;</button>
+  <iframe
+    title="AliaJS video"
+    data-src="https://www.youtube.com/embed/jCMXwUbXAz0?autoplay=1"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowFullScreen
+  ></iframe>
+</dialog>
 
 <h2>Comparison with other tools</h2>
 <table>
@@ -26,7 +39,7 @@ import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/co
     <tr><td>Secure vault</td><td>Pulumi ESC</td><td>No</td><td>No</td><td>No</td><td>Vaultwarden</td></tr>
     <tr><td>HTTP service</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr>
     <tr><td>Languages</td><td>YAML, TypeScript, JavaScript, Python, C# Java</td><td>Docker & Nix config</td><td>HCL, JSON</td><td>No</td><td>JavaScript ES2025</td></tr>
-    <tr><td>Turnkey solution</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No, next coming feature: `socket npx aliajs new n8n`</td></tr>
+    <tr><td>Turnkey solution</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No<br/>Coming feature: `socket npx aliajs new ERPNext development environment in minutes.`</td></tr>
   </tbody>
 </table>
 
@@ -90,10 +103,9 @@ import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/co
 </Tabs>
 
 <h2>Active projects by <a href="https://linkedin.com/in/jdecaron">JD Caron</a></h2>
-
 <CardGrid>
 	<Card title="AliaJS" icon="right-arrow">
-		Infrastructe as code with JavaScript 🤖
+		Continuously operations, infrastructe as ECMAScript.
 
     https://github.com/jdecaron/aliajs
 	</Card>
@@ -159,7 +171,6 @@ import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/co
 	</Card>
 </CardGrid>
 
-
 <h2>Growing the self-hosting community together</h2>
 <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's collaborate</LinkButton>
 
@@ -168,4 +179,32 @@ import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/co
 Cal("init", "30min", {origin:"https://cal.com"});
 
   Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+`}</script>
+
+<script type="text/javascript">{`
+  const videoDialog = document.querySelector('#aliajs-youtube-dialog');
+  const videoElement = document.querySelector('#aliajs-video-element');
+  const videoFrame = videoDialog?.querySelector('iframe');
+
+  window.openAliajsVideo = () => {
+    window.videoPause = !window.videoPause; if (window.videoPause === true) { videoElement.pause() } else { videoElement.play() };
+    videoFrame.src = videoFrame.dataset.src;
+    videoDialog.showModal();
+  };
+
+  document.querySelector('#aliajs-youtube-close')?.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    videoDialog.close();
+  });
+  videoDialog?.addEventListener('click', (event) => {
+    if (event.target === videoDialog) {
+      videoDialog.close();
+    }
+  });
+  videoDialog?.addEventListener('close', () => {
+    window.videoPause = false;
+    videoElement.play();
+    videoFrame.src = '';
+  });
 `}</script>
