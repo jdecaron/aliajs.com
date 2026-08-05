@@ -45,6 +45,22 @@ blockquote {
     padding-left: 2em; 
 }
 
+#aliajs-summary-flex {
+    display: flex;
+    flex-flow: wrap;
+}
+
+#aliajs-summary {
+    flex;
+    width: 50%;
+    padding-right: 4em;
+}
+
+#aliajs-video {
+    flex;
+    width: 50%;
+}
+
 header {
     backdrop-filter: blur(16px);
     background-color: #0000;
@@ -67,6 +83,11 @@ table tbody tr:nth-child(2n) {
     background-color: var(--light-purple-6);;
 }
 
+video {
+    border-radius: 2em;
+    cursor: pointer;
+}
+
 .card.sl-flex {
     border-radius: 2em;
 }
@@ -83,6 +104,15 @@ table tbody tr:nth-child(2n) {
 @media (max-aspect-ratio: 1/1) {
     :root {
         --sl-text-h1: 3em;
-        --sl-text-h2: 2.8em;
+        --sl-text-h2: 2em;
+    }
+    #aliajs-summary {
+        flex;
+        width: 100%;
+        padding-right: 2em;
+    }
+    #aliajs-video {
+        flex;
+        width: 100%;
     }
 }

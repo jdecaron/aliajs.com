@@ -7,11 +7,14 @@ pagefind: false
 
 import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<div style="display: flex; justify-content: center; flex-flow: wrap;">
-<div>
-  <h1>Continous operations, as simple as possible, but not simpler</h1>
-  <p>Infrastructure as code (JavaScript) on the most modern runtime. A tool to help you get self-autonomous on your systems, platforms, services. Considering agility, security, quality.</p>
-  <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Talk to the founder</LinkButton>
+<div id="aliajs-summary-flex">
+  <div id="aliajs-summary">
+    <h1>Continous operations, as simple as possible, but not simpler</h1>
+    <p>Infrastructure as code (JavaScript) on the most modern runtime. A tool to help you get self-autonomous on your systems, platforms, services. Considering agility, security, quality.</p>
+    <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Talk to the founder</LinkButton>
+  </div>
+  <div id="aliajs-video">
+    <video aria-label="AliaJS example usage, deploying an ephemeral ERPNext development environment." muted loop playsinline autoplay preload="metadata" disablepictureinpicture disableremoteplayback draggable="false" src="/public/aliajs-720-demo-erpnext-ephemeral-environment.mp4" onclick="window.videoPause = !window.videoPause; if (window.videoPause === true) { this.pause() } else {this.play() }"></video>
   </div>
 </div>
 
@@ -26,7 +29,7 @@ import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/co
     <tr><td>Secure vault</td><td>Pulumi ESC</td><td>No</td><td>No</td><td>No</td><td>Vaultwarden</td></tr>
     <tr><td>HTTP service</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr>
     <tr><td>Languages</td><td>YAML, TypeScript, JavaScript, Python, C# Java</td><td>Docker & Nix config</td><td>HCL, JSON</td><td>No</td><td>JavaScript ES2025</td></tr>
-    <tr><td>Turnkey solution</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No, next coming feature: `socket npx aliajs new n8n`</td></tr>
+    <tr><td>Turnkey solution</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No<br/>Coming feature: `socket npx aliajs new ERPNext development environment in minutes.`</td></tr>
   </tbody>
 </table>
 
@@ -90,10 +93,9 @@ import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/co
 </Tabs>
 
 <h2>Active projects by <a href="https://linkedin.com/in/jdecaron">JD Caron</a></h2>
-
 <CardGrid>
 	<Card title="AliaJS" icon="right-arrow">
-		Infrastructe as code with JavaScript 🤖
+		Continuously operations, infrastructe as ECMAScript.
 
     https://github.com/jdecaron/aliajs
 	</Card>
@@ -158,7 +160,6 @@ import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/co
     Automated system to lower your elastic cloud usage, sleep your services when they aren't used: night, boot on demand, auto-scale.
 	</Card>
 </CardGrid>
-
 
 <h2>Growing the self-hosting community together</h2>
 <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's collaborate</LinkButton>
