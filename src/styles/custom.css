@@ -51,13 +51,11 @@ blockquote {
 }
 
 #aliajs-summary {
-    flex;
     width: 50%;
     padding-right: 4em;
 }
 
 #aliajs-video {
-    flex;
     width: 50%;
 }
 
