@@ -45,6 +45,11 @@ blockquote {
     padding-left: 2em; 
 }
 
+button#aliajs-youtube-close:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
 #aliajs-summary-flex {
     display: flex;
     flex-flow: wrap;
