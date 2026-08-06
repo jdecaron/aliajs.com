@@ -139,12 +139,10 @@ video {
         --sl-text-h2: 2em;
     }
     #aliajs-summary {
-        flex;
         width: 100%;
         padding-right: 2em;
     }
     #aliajs-video {
-        flex;
         width: 100%;
     }
 }
