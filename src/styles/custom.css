@@ -150,4 +150,8 @@ video {
     #aliajs-video {
         width: 100%;
     }
+    blockquote {
+        padding: .85rem;
+        width: 100%;
+    }
 }
