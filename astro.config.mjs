@@ -30,7 +30,8 @@ export default defineConfig({
 			  social: [
           { icon: 'email', label: 'Email', href: 'mailto:j@aliajs.com' },
           { icon: 'github', label: 'Github', href: 'https://github.com/jdecaron/aliajs' },
-          { icon: 'linkedin', label: 'Mastodon', href: 'https://www.linkedin.com/company/aliajs' },
+          { icon: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/aliajs' },
+          { icon: 'mastodon', label: 'Mastodon', href: 'https://mastodon.social/@jcaron' },
         ],
 		}),
 	],
