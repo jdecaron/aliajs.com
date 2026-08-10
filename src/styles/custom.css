@@ -78,6 +78,10 @@ table tbody td:first-child {
     padding-left: .85rem;
 }
 
+table tbody td:last-child {
+    padding-right: .85rem;
+}
+
 table tbody tr {
     background-color: var(--light-purple-7);;
 }
