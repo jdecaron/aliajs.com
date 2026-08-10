@@ -35,6 +35,10 @@
     color: black !important
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 blockquote {
   padding: .85rem;
   background-color: var(--light-purple-6);
