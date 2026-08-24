@@ -76,6 +76,7 @@ header {
 
 table thead th {
     background-color: var(--light-purple-5);;
+    padding-right: 1em;
 }
 
 table tbody td:first-child {
