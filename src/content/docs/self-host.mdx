@@ -1,0 +1,93 @@
+---
+title: Self-Host
+description: Learn how to bootstrap your cloud system with AliaJS.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+AliaJS let you self-host a cloud system in two command lines; 5 minutes of your attention time.
+
+## Security
+
+Running commands from the Internet into your computer is not the best security practice. If you don't fully trust the source of what you are running you should take easy precautions. Recommended read [Reflections on Trusting Trust](https://fermatslibrary.com/s/reflections-on-trusting-trust) by [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson)
+
+Running commands inside a virtual machine, sandbox or security wrapper, example: [Socket CLI](https://socket.dev/features/cli)
+
+Blank cloud account, or sandboxed project
+
+Virtual credit card, limited in credit (amount you are confortable to risk)
+
+Throwaway domain name with limited scope DNS API record access
+
+## Getting Started
+
+### Prerequisites
+Cloud account (only Hetzner for now)
+
+Transfer name server
+- Hetzner [Authoritative name servers](https://docs.hetzner.com/networking/dns/overview#authoritative-name-servers)
+  - hydrogen.ns.hetzner.com.
+  - oxygen.ns.hetzner.com.
+  - helium.ns.hetzner.de.
+
+Local tools
+- Node.js
+- Bitwarden CLI
+
+<Tabs>
+<TabItem label="Bitwarden CLI">
+```sh
+# Specific version context
+# https://github.com/dani-garcia/vaultwarden/discussions/7615#discussioncomment-18140443
+npm install -g @bitwarden/cli@2026.6
+```
+</TabItem>
+<TabItem label="Node.js">
+```sh
+# More install options
+# https://nodejs.org/en/download
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+\. "$HOME/.nvm/nvm.sh"
+nvm install 24
+```
+</TabItem>
+</Tabs>
+
+## Quick Start
+Login to your cloud console
+
+Create a new project (+ New project): https://console.hetzner.com/projects
+
+You will be asked two set of secrets (API token, S3 credential), run the first command and wait for the first question:
+
+What is your Hetzner API key (token)? `Security > API tokens`, then click `Generate API token`, set as (Read & Write)
+
+What is your S3 access key? `Security > S3 credentials`, then click `Generate credentials`
+
+### Bootstrap a new cloud system
+
+<Tabs>
+<TabItem label="Blank">
+
+```sh
+npx aliajs new
+```
+
+</TabItem>
+<TabItem label="ERPNext">
+
+```sh
+# AliaJS works best in an empty directory
+mkdir aliajs
+cd aliajs
+git clone git@github.com:jdecaron/aliajs.git
+cd aliajs
+git checkout erpnext-15
+npm install
+npm run new
+# Answer the questions ...
+```
+
+</TabItem>
+</Tabs>
