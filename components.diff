@@ -1,10 +1,27 @@
-diff --color node_modules/@astrojs/starlight/components/Footer.astro /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.cqE7GBQikU/node_modules/@astrojs/starlight/components/Footer.astro
-14d13
-< 	<Pagination />
-diff --color node_modules/@astrojs/starlight/components/Page.astro /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.cqE7GBQikU/node_modules/@astrojs/starlight/components/Page.astro
-109d108
-< 									<PageTitle />
-112,113d110
-< 								</ContentPanel>
-< 								<ContentPanel>
-Common subdirectories: node_modules/@astrojs/starlight/components/TableOfContents and /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.cqE7GBQikU/node_modules/@astrojs/starlight/components/TableOfContents
+--- /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.QhofDfjDSM/aliajs.com/node_modules/@astrojs/starlight/dist/components/Footer.astro	2026-09-25 09:58:25
++++ node_modules/@astrojs/starlight/dist/components/Footer.astro	2026-09-24 20:03:34
+@@ -11,7 +11,6 @@
+ 		<EditLink />
+ 		<LastUpdated />
+ 	</div>
+-	<Pagination />
+ 
+ 	{
+ 		config.credits && (
+diff --color -ur /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.QhofDfjDSM/aliajs.com/node_modules/@astrojs/starlight/dist/components/Page.astro node_modules/@astrojs/starlight/dist/components/Page.astro
+--- /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.QhofDfjDSM/aliajs.com/node_modules/@astrojs/starlight/dist/components/Page.astro	2026-09-25 09:58:25
++++ node_modules/@astrojs/starlight/dist/components/Page.astro	2026-09-24 20:18:16
+@@ -106,11 +106,9 @@
+ 						) : (
+ 							<>
+ 								<ContentPanel>
+-									<PageTitle />
++									{starlightRoute.entry.data.template !== 'splash' && <PageTitle />}
+ 									{starlightRoute.entry.data.draft && <DraftContentNotice />}
+ 									{starlightRoute.isFallback && <FallbackContentNotice />}
+-								</ContentPanel>
+-								<ContentPanel>
+ 									<MarkdownContent>
+ 										<slot />
+ 									</MarkdownContent>
+Only in /var/folders/7s/q2jxmv5s0bqfvqv0xkxxdgf40000gn/T/tmp.QhofDfjDSM/aliajs.com/node_modules: fsevents
