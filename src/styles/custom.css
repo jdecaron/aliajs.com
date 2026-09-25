@@ -23,12 +23,12 @@
     width: 100%;
 }
 
-.expressive-code .frame pre {
-    border-radius: 2em;
+.page {
+  background: linear-gradient(215deg, var(--overlay-light-blue), transparent 200vh), radial-gradient(var(--overlay-light-blue), transparent 40%) no-repeat -60vw -40vh / 105vw 200vh, radial-gradient(var(--overlay-light-blue), transparent 65%) no-repeat 50% calc(100% + 20rem) / 60rem 30rem;
 }
 
-.page {
-    background: linear-gradient(215deg, var(--overlay-light-blue), transparent 40%), radial-gradient(var(--overlay-light-blue), transparent 40%) no-repeat -60vw -40vh / 105vw 200vh, radial-gradient(var(--overlay-light-blue), transparent 65%) no-repeat 50% calc(100% + 20rem) / 60rem 30rem
+.sidebar-pane {
+    background-color: unset;
 }
 
 .site-title {
@@ -138,6 +138,10 @@ video {
     border-radius: 2em;
 }
 
+.sidebar-pane {
+    background-color: unset;
+}
+
 .sl-link-button.primary {
     background: rgb(0 107 230);
     background-color: rgb(0 107 230);
@@ -147,10 +151,23 @@ video {
     font-weight: 500;
 }
 
+nav[aria-labelledby="starlight__on-this-page--mobile"] {
+    backdrop-filter: blur(16px);
+    background-color: #0000;
+    border-bottom: 1px solid #0000;
+}
+
+:where(a)[aria-current="page"], :where(a)[aria-current="page"]:hover, :where(a)[aria-current="page"]:focus {
+    color: var(--sl-color-white);
+    background-color: var(--overlay-light-blue);
+}
+
 @media (max-aspect-ratio: 1/1) {
     :root {
-        --sl-text-h1: 3em;
-        --sl-text-h2: 2em;
+        .aliajs-hero-page {
+          --sl-text-h1: 3em;
+          --sl-text-h2: 2em;
+        }
     }
     #aliajs-summary {
         width: 100%;

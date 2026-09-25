@@ -3,224 +3,228 @@ title: Continous operations, infrastructe as code with JavaScript
 description: Continous operations, infrastructe as code with JavaScript
 template: splash
 pagefind: false
+sidebar:
+  hidden: true
 ---
 
 import { Card, CardGrid, LinkButton, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<div id="aliajs-summary-flex">
-  <div id="aliajs-summary">
-    <h1>Continous operations, as simple as possible, but not simpler</h1>
-    <p>Infrastructure as code (JavaScript) on the most modern runtime. A tool to help you get self-autonomous on your systems, platforms, services. Considering agility, security, quality.</p>
-    <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Talk to the founder</LinkButton>
-    <LinkButton variant="secondary" href="/self-host">Self-Host</LinkButton>
-  </div>
-  <div id="aliajs-video" onclick="window.openAliajsVideo()">
-    <video id="aliajs-video-element" aria-label="AliaJS example usage, deploying an ephemeral ERPNext development environment." muted loop playsinline autoplay preload="metadata" disablepictureinpicture disableremoteplayback draggable="false" poster="/aliajs-720-demo-erpnext-ephemeral-environment.jpg" src="/aliajs-720-demo-erpnext-ephemeral-environment.mp4"></video>
-  </div>
-</div>
-
-<dialog id="aliajs-youtube-dialog" aria-label="AliaJS video">
-  <button id="aliajs-youtube-close" type="button" aria-label="Close video">&times;</button>
-  <iframe
-    title="AliaJS video"
-    data-src="https://www.youtube.com/embed/jCMXwUbXAz0?autoplay=1"
-    sandbox="allow-scripts allow-same-origin"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowFullScreen
-  ></iframe>
-</dialog>
-
-<h2>Comparison with other tools</h2>
-<table>
-  <thead>
-    <tr><th></th><th>AliaJS</th><th>Pulumi</th><th>Kubernetes</th><th>Coolify</th><th>Terraform</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Lines of code</td><td>~2K</td><td>~828K</td><td>~3.57M</td><td>~291K</td><td>~609K</td></tr>
-    <tr><td>Dependencies</td><td>9</td><td>330</td><td>250</td><td>353</td><td>375</td></tr>
-    <tr><td>Secure vault</td><td>Vaultwarden</td><td>Pulumi ESC</td><td>No</td><td>No</td><td>No</td></tr>
-    <tr><td>HTTP service</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td></tr>
-    <tr><td>Languages</td><td>JavaScript ES2025</td><td>YAML, TypeScript, JavaScript, Python, C# Java</td><td>Docker & Nix config</td><td>HCL, JSON</td><td>No</td></tr>
-    <tr><td>Turnkey solution</td><td>No<br/><a href="#turnkey-solution">Coming feature</a></td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-  </tbody>
-</table>
-
-<h2>Code examples</h2>
-<Tabs>
-  <TabItem label="Certificate Validity Test">
-    ```js wrap
-    /**
-      Testing three things: nginx reverse proxy, Node.js service, TLS certificate validity,
-      using a test address (new instance) before doing potential breaking DNS records changes.
-      - https://github.com/jdecaron/aliajs/blob/main/src/deploy.js#L236-L253
-    **/
-    await retry(async () => {
-      const response = await new Promise((resolve, reject) => {
-        const req = https.request({
-          host: address,
-          port: 443,
-          path: '/404-uc3C6',
-          method: 'GET',
-          headers: { Host: server_name },
-          servername: server_name,
-        }, resolve)
-        req.on('error', reject)
-        req.end()
-      })
-      response.resume()
-      if (response.statusCode !== 404) {
-        throw new Error(`Service ${service.name} not responding 404 status`)
-      }
-    })
-    ```
-  </TabItem>
-  <TabItem label="Backup">
-  ```js wrap
-  /*
-    Vaultwarden backup, running vaultwarden docker container backup command,
-    getting the file path, injecting restic S3 secrets, runnning restic backup.
-    - https://github.com/jdecaron/aliajs/blob/main/configurations/instances.js#L26-L30
-  */
-  "backup": [
-    {
-      command: async ({ c }) => {
-        await c.ssh.current({ command: `sudo docker exec vaultwarden /vaultwarden backup` })
-        const backupFile = (await c.ssh.current({ command: `ls -t /vw-data/ | head -n1` })).replace(/\s$/, '')
-
-        await c.ssh.current({
-          command: `
-            export AWS_ACCESS_KEY_ID=${process.env.ALIAJS_DEFAULT_S3_ACCESS_KEY_ID};
-            export AWS_SECRET_ACCESS_KEY=${process.env.ALIAJS_DEFAULT_S3_SECRET_ACCESS_KEY};
-            export RESTIC_PASSWORD=${process.env.ALIAJS_VARIABLE_2};
-            restic -r ${process.env.ALIAJS_DEFAULT_S3_URL}/restic backup
-              --stdin --stdin-filename sauce-production-backup
-              --tag sauce-production-backup
-              < /vw-data/${backupFile}`,
-        })
-      }
-    },
-  ],
-  ```
-  </TabItem>
-  <TabItem label="Fallback Cloud Instance">
-  ```js wrap
-  /*
-    Instead of a static configuration file for instance definition, dynamic programmable function,
-    can return a fallback instance type according to the logic of your preference.
-    - https://github.com/jdecaron/aliajs/blob/main/src/cloud/hetzner.js#L184-L212
-  */
-  const fallbackInstance = async ({ instance, location, server_type }) => {
-    if (instance?.fallback) {
-      const response = await ky(`https://api.hetzner.cloud/v1/server_types?name=&page=1&per_page=50`, {
-        headers: { 'Authorization': `Bearer ${process.env.HETZNER_API_TOKEN}` }
-      }).json()
-      const instances = response.server_types
-      for (let i = 0; i < instance?.fallback?.length; i++) {
-        let fallback = instance.fallback[i]
-        let filteredInstances = []
-        let filteredLocations = []
-        if (fallback === 'location') {
-          filteredInstances = instances.filter((instance) => { return instance.name === server_type })
-          filteredLocations = filteredInstances[0].locations.filter(((candidateLocation) => { return candidateLocation.available }))
-        } else {
-          fallback = mapFallback({ fallback })
-          filteredInstances = instances.filter((instance) => { return instance[fallback[0]] === fallback[1] })
-          filteredLocations = filteredInstances[0].locations.filter(((candidateLocation) => { return candidateLocation.name === location && candidateLocation.available }))
-        }
-        if (filteredLocations?.length > 0) {
-          location = filteredLocations[0].name
-          server_type = filteredInstances[0].name
-          i = Infinity
-        }
-      }
-    }
-    location = location || process.env.ALIAJS_DEFAULT_LOCATION
-    server_type = server_type || process.env.ALIAJS_DEFAULT_TYPE
-    return { location, server_type }
-  }
-  ```
-  </TabItem>
-</Tabs>
-
-<h2>Active projects by <a href="https://linkedin.com/in/jdecaron">JD Caron</a></h2>
-<CardGrid>
-	<Card title="AliaJS" icon="right-arrow">
-		Continuously operations, infrastructe as ECMAScript.
-
-    https://github.com/jdecaron/aliajs
-	</Card>
-	<Card title="Rollance" icon="right-arrow" href="/sauce">
-		Manufacturing company, focused on agility & 無駄.
-
-    https://rollance.com
-	</Card>
-</CardGrid>
-
-<h2>Why</h2>
-<div style="width:90%">
-  <h3>Solving a problem</h3>
-  <p>Around september 2018, a service deterioration happened on a popular PaaS (platform as a service). Support said nothing was wrong. I migrated the service to a cloud, slightly automated with Ansible. As an experiment, I asked, what if I had a tool to manage my cloud infrastructure in the same language the project is written with: JavaScript?</p>
-  <div class="blockquote-left-padding">
-  > Every good work of software starts by scratching a developer's personal itch. – Eric S. Raymond
-
-  > It is incredibly powerful if you solve the problem you actually have yourself. – Tobias Lütke
-
-  > I'm doing a (free) operating system (just a hobby, won't be big and professional like gnu) for 386(486) AT clones. – Linus Torvalds
-
-  > ... look for problems, preferably problems you have yourself. – Paul Graham, "[How to Get Startup Ideas](https://www.paulgraham.com/startupideas.html)"
-  </div>
-  <h3>Reversible and irreversible development</h3>
-  <p>Living in the future means you know that with more security, quality, agility on your deployments, you can leap through a system that allows you to build an reversible environment for things that don't exist yet: ERP's, I wanted that.</p>
-  <div class="blockquote-left-padding">
-    <blockquote>
-    What is good for coding agents is also good for human coders. Coding agents work well because code is reversible — we have Git and can undo mistakes. The real danger comes when agents act on things you can't roll back, like production databases or money, where gullibility becomes a catastrophic problem. – Simon Willison
-    </blockquote>
-    <blockquote>
-    ... changeable, reversible – they’re two-way doors. Type 2 decision ... you don’t have to live with the consequences for that long. – Jeff Bezos
-    </blockquote>
-  </div>
-  <h3>Simple code is good for both humans and agents</h3>
-  <p style="margin-left: 2em;">
-    Composing together ...<br/>
-    <div style="margin-left: 1em; margin-top: 0em;">"reversible environments",<br/>"agentic engineering",<br/>"as simple as possible code",<br/></div>
-  </p>
-  <div class="blockquote-left-padding">
-  > This saving is because the agent has to read less code... — Giles Edwards-Alexander, ["The Economic Benefit of Refactoring"](https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html)
-  </div>
-  <p>... enables you to be ...</p>
-  <div style="padding-left: 2em;">
-    <blockquote>
-    ... living in the future ... If you're really at the leading edge of a rapidly changing field, there will be things that are obviously missing. – Paul Graham, "[How to Get Startup Ideas](https://www.paulgraham.com/startupideas.html)"
-    </blockquote>
-  </div>
-</div>
-
-<h2>Roadmap</h2>
-<CardGrid>
-	<Card title="Turnkey Solution" icon="right-arrow">
-    <div id="turnkey-solution">
-      <div>Get your favorite service running on a cloud in a few minutes, with one simple command.</div>
-      <div>`socket npx aliajs new erpnext`</div>
-      <div>*<a href="https://socket.dev/">socket</a> is a safer way for running commands on your systems.</div>
+<div class="aliajs-hero-page">
+  <div id="aliajs-summary-flex">
+    <div id="aliajs-summary">
+      <h1>Continous operations, as simple as possible, but not simpler</h1>
+      <p>Infrastructure as code (JavaScript) on the most modern runtime. A tool to help you get self-autonomous on your systems, platforms, services. Considering agility, security, quality.</p>
+      <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">️Talk to the founder</LinkButton>
+      <LinkButton variant="secondary" href="/self-host">Self-Host</LinkButton>
     </div>
-	</Card>
-	<Card title="Hybrid, On-Prem & Cloud" icon="right-arrow">
-    Modern hybrid compute, run your most critical deployments on-prem ([Oxide](https://oxide.computer/), [Scooter](https://blog.codinghorror.com/the-scooter-computer/), [Turing Pi](https://turingpi.com/product/turing-pi-2-5/)), provide to your organisation a development environment on cloud.
-    <blockquote>
-    There is no cloud, it's just someone else's computer – Jeff Atwood, "[The Cloud Is Just Someone Else’s Computer
-](https://blog.codinghorror.com/the-cloud-is-just-someone-elses-computer/)"
-    </blockquote>
-	</Card>
-	<Card title="Low Maintenance Platform as a Service" icon="right-arrow">
-    Build a SaaS, PaaS with low dependencies, daily instance refresh, 0 downtime deployments, automatic vulnerability updates.
-	</Card>
-	<Card title="Lower Cost Sleep System" icon="right-arrow">
-    Automated system to lower your elastic cloud usage, sleep your services when they aren't used: night, boot on demand, auto-scale.
-	</Card>
-</CardGrid>
+    <div id="aliajs-video" onclick="window.openAliajsVideo()">
+      <video id="aliajs-video-element" aria-label="AliaJS example usage, deploying an ephemeral ERPNext development environment." muted loop playsinline autoplay preload="metadata" disablepictureinpicture disableremoteplayback draggable="false" poster="/aliajs-720-demo-erpnext-ephemeral-environment.jpg" src="/aliajs-720-demo-erpnext-ephemeral-environment.mp4"></video>
+    </div>
+  </div>
 
-<h2>Growing the self-hosting community together</h2>
-<LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's collaborate</LinkButton>
+  <dialog id="aliajs-youtube-dialog" aria-label="AliaJS video">
+    <button id="aliajs-youtube-close" type="button" aria-label="Close video">&times;</button>
+    <iframe
+      title="AliaJS video"
+      data-src="https://www.youtube.com/embed/jCMXwUbXAz0?autoplay=1"
+      sandbox="allow-scripts allow-same-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    ></iframe>
+  </dialog>
+
+  <h2>Comparison with other tools</h2>
+  <table>
+    <thead>
+      <tr><th></th><th>AliaJS</th><th>Pulumi</th><th>Kubernetes</th><th>Coolify</th><th>Terraform</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Lines of code</td><td>~2K</td><td>~828K</td><td>~3.57M</td><td>~291K</td><td>~609K</td></tr>
+      <tr><td>Dependencies</td><td>9</td><td>330</td><td>250</td><td>353</td><td>375</td></tr>
+      <tr><td>Secure vault</td><td>Vaultwarden</td><td>Pulumi ESC</td><td>No</td><td>No</td><td>No</td></tr>
+      <tr><td>HTTP service</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Languages</td><td>JavaScript ES2025</td><td>YAML, TypeScript, JavaScript, Python, C# Java</td><td>Docker & Nix config</td><td>HCL, JSON</td><td>No</td></tr>
+      <tr><td>Turnkey solution</td><td>No<br/><a href="#turnkey-solution">Coming feature</a></td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Code examples</h2>
+  <Tabs>
+    <TabItem label="Certificate Validity Test">
+      ```js wrap
+      /**
+        Testing three things: nginx reverse proxy, Node.js service, TLS certificate validity,
+        using a test address (new instance) before doing potential breaking DNS records changes.
+        - https://github.com/jdecaron/aliajs/blob/main/src/deploy.js#L236-L253
+      **/
+      await retry(async () => {
+        const response = await new Promise((resolve, reject) => {
+          const req = https.request({
+            host: address,
+            port: 443,
+            path: '/404-uc3C6',
+            method: 'GET',
+            headers: { Host: server_name },
+            servername: server_name,
+          }, resolve)
+          req.on('error', reject)
+          req.end()
+        })
+        response.resume()
+        if (response.statusCode !== 404) {
+          throw new Error(`Service ${service.name} not responding 404 status`)
+        }
+      })
+      ```
+    </TabItem>
+    <TabItem label="Backup">
+    ```js wrap
+    /*
+      Vaultwarden backup, running vaultwarden docker container backup command,
+      getting the file path, injecting restic S3 secrets, runnning restic backup.
+      - https://github.com/jdecaron/aliajs/blob/main/configurations/instances.js#L26-L30
+    */
+    "backup": [
+      {
+        command: async ({ c }) => {
+          await c.ssh.current({ command: `sudo docker exec vaultwarden /vaultwarden backup` })
+          const backupFile = (await c.ssh.current({ command: `ls -t /vw-data/ | head -n1` })).replace(/\s$/, '')
+
+          await c.ssh.current({
+            command: `
+              export AWS_ACCESS_KEY_ID=${process.env.ALIAJS_DEFAULT_S3_ACCESS_KEY_ID};
+              export AWS_SECRET_ACCESS_KEY=${process.env.ALIAJS_DEFAULT_S3_SECRET_ACCESS_KEY};
+              export RESTIC_PASSWORD=${process.env.ALIAJS_VARIABLE_2};
+              restic -r ${process.env.ALIAJS_DEFAULT_S3_URL}/restic backup
+                --stdin --stdin-filename sauce-production-backup
+                --tag sauce-production-backup
+                < /vw-data/${backupFile}`,
+          })
+        }
+      },
+    ],
+    ```
+    </TabItem>
+    <TabItem label="Fallback Cloud Instance">
+    ```js wrap
+    /*
+      Instead of a static configuration file for instance definition, dynamic programmable function,
+      can return a fallback instance type according to the logic of your preference.
+      - https://github.com/jdecaron/aliajs/blob/main/src/cloud/hetzner.js#L184-L212
+    */
+    const fallbackInstance = async ({ instance, location, server_type }) => {
+      if (instance?.fallback) {
+        const response = await ky(`https://api.hetzner.cloud/v1/server_types?name=&page=1&per_page=50`, {
+          headers: { 'Authorization': `Bearer ${process.env.HETZNER_API_TOKEN}` }
+        }).json()
+        const instances = response.server_types
+        for (let i = 0; i < instance?.fallback?.length; i++) {
+          let fallback = instance.fallback[i]
+          let filteredInstances = []
+          let filteredLocations = []
+          if (fallback === 'location') {
+            filteredInstances = instances.filter((instance) => { return instance.name === server_type })
+            filteredLocations = filteredInstances[0].locations.filter(((candidateLocation) => { return candidateLocation.available }))
+          } else {
+            fallback = mapFallback({ fallback })
+            filteredInstances = instances.filter((instance) => { return instance[fallback[0]] === fallback[1] })
+            filteredLocations = filteredInstances[0].locations.filter(((candidateLocation) => { return candidateLocation.name === location && candidateLocation.available }))
+          }
+          if (filteredLocations?.length > 0) {
+            location = filteredLocations[0].name
+            server_type = filteredInstances[0].name
+            i = Infinity
+          }
+        }
+      }
+      location = location || process.env.ALIAJS_DEFAULT_LOCATION
+      server_type = server_type || process.env.ALIAJS_DEFAULT_TYPE
+      return { location, server_type }
+    }
+    ```
+    </TabItem>
+  </Tabs>
+
+  <h2>Active projects by <a href="https://linkedin.com/in/jdecaron">JD Caron</a></h2>
+  <CardGrid>
+      <Card title="AliaJS" icon="right-arrow">
+          Continuously operations, infrastructe as ECMAScript.
+
+      https://github.com/jdecaron/aliajs
+      </Card>
+      <Card title="Rollance" icon="right-arrow" href="/sauce">
+          Manufacturing company, focused on agility & 無駄.
+
+      https://rollance.com
+      </Card>
+  </CardGrid>
+
+  <h2>Why</h2>
+  <div style="width:90%">
+    <h3>Solving a problem</h3>
+    <p>Around september 2018, a service deterioration happened on a popular PaaS (platform as a service). Support said nothing was wrong. I migrated the service to a cloud, slightly automated with Ansible. As an experiment, I asked, what if I had a tool to manage my cloud infrastructure in the same language the project is written with: JavaScript?</p>
+    <div class="blockquote-left-padding">
+    > Every good work of software starts by scratching a developer's personal itch. – Eric S. Raymond
+
+    > It is incredibly powerful if you solve the problem you actually have yourself. – Tobias Lütke
+
+    > I'm doing a (free) operating system (just a hobby, won't be big and professional like gnu) for 386(486) AT clones. – Linus Torvalds
+
+    > ... look for problems, preferably problems you have yourself. – Paul Graham, "[How to Get Startup Ideas](https://www.paulgraham.com/startupideas.html)"
+    </div>
+    <h3>Reversible and irreversible development</h3>
+    <p>Living in the future means you know that with more security, quality, agility on your deployments, you can leap through a system that allows you to build an reversible environment for things that don't exist yet: ERP's, I wanted that.</p>
+    <div class="blockquote-left-padding">
+      <blockquote>
+      What is good for coding agents is also good for human coders. Coding agents work well because code is reversible — we have Git and can undo mistakes. The real danger comes when agents act on things you can't roll back, like production databases or money, where gullibility becomes a catastrophic problem. – Simon Willison
+      </blockquote>
+      <blockquote>
+      ... changeable, reversible – they’re two-way doors. Type 2 decision ... you don’t have to live with the consequences for that long. – Jeff Bezos
+      </blockquote>
+    </div>
+    <h3>Simple code is good for both humans and agents</h3>
+    <p style="margin-left: 2em;">
+      Composing together ...<br/>
+      <div style="margin-left: 1em; margin-top: 0em;">"reversible environments",<br/>"agentic engineering",<br/>"as simple as possible code",<br/></div>
+    </p>
+    <div class="blockquote-left-padding">
+    > This saving is because the agent has to read less code... — Giles Edwards-Alexander, ["The Economic Benefit of Refactoring"](https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html)
+    </div>
+    <p>... enables you to be ...</p>
+    <div style="padding-left: 2em;">
+      <blockquote>
+      ... living in the future ... If you're really at the leading edge of a rapidly changing field, there will be things that are obviously missing. – Paul Graham, "[How to Get Startup Ideas](https://www.paulgraham.com/startupideas.html)"
+      </blockquote>
+    </div>
+  </div>
+
+  <h2>Roadmap</h2>
+  <CardGrid>
+      <Card title="Turnkey Solution" icon="right-arrow">
+      <div id="turnkey-solution">
+        <div>Get your favorite service running on a cloud in a few minutes, with one simple command.</div>
+        <div>`socket npx aliajs new erpnext`</div>
+        <div>*<a href="https://socket.dev/">socket</a> is a safer way for running commands on your systems.</div>
+      </div>
+      </Card>
+      <Card title="Hybrid, On-Prem & Cloud" icon="right-arrow">
+      Modern hybrid compute, run your most critical deployments on-prem ([Oxide](https://oxide.computer/), [Scooter](https://blog.codinghorror.com/the-scooter-computer/), [Turing Pi](https://turingpi.com/product/turing-pi-2-5/)), provide to your organisation a development environment on cloud.
+      <blockquote>
+      There is no cloud, it's just someone else's computer – Jeff Atwood, "[The Cloud Is Just Someone Else’s Computer
+  ](https://blog.codinghorror.com/the-cloud-is-just-someone-elses-computer/)"
+      </blockquote>
+      </Card>
+      <Card title="Low Maintenance Platform as a Service" icon="right-arrow">
+      Build a SaaS, PaaS with low dependencies, daily instance refresh, 0 downtime deployments, automatic vulnerability updates.
+      </Card>
+      <Card title="Lower Cost Sleep System" icon="right-arrow">
+      Automated system to lower your elastic cloud usage, sleep your services when they aren't used: night, boot on demand, auto-scale.
+      </Card>
+  </CardGrid>
+
+  <h2>Growing the self-hosting community together</h2>
+  <LinkButton data-cal-link="jcaron/30min" data-cal-namespace="30min" data-cal-config='{"layout":"month_view"}' href="#">Let's collaborate</LinkButton>
+</div>
 
 <script type="text/javascript">{`
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
