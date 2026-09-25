@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.42.3",
     "astro": "^7.3.4",
+    "astro-embed": "^0.14.0",
     "sharp": "^0.32.5"
   }
 }

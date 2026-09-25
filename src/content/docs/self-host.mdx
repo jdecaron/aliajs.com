@@ -4,6 +4,7 @@ description: Learn how to bootstrap your cloud system with AliaJS.
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { YouTube } from 'astro-embed';
 
 AliaJS let you self-host a cloud system in two command lines; 5 minutes of your attention time.
 
@@ -30,19 +31,8 @@ Transfer name server
   - oxygen.ns.hetzner.com.
   - helium.ns.hetzner.de.
 
-Local tools
-- Node.js
-- Bitwarden CLI
+Node.js version >= `22.18.0` installed locally
 
-<Tabs>
-<TabItem label="Bitwarden CLI">
-```sh
-# Specific version context
-# https://github.com/dani-garcia/vaultwarden/discussions/7615#discussioncomment-18140443
-npm install -g @bitwarden/cli@2026.6
-```
-</TabItem>
-<TabItem label="Node.js">
 ```sh
 # More install options
 # https://nodejs.org/en/download
@@ -51,8 +41,6 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 \. "$HOME/.nvm/nvm.sh"
 nvm install 24
 ```
-</TabItem>
-</Tabs>
 
 ## Quick Start
 Login to your cloud console
@@ -71,6 +59,10 @@ What is your S3 access key? `Security > S3 credentials`, then click `Generate cr
 <TabItem label="Blank">
 
 ```sh
+# Specific version context
+# https://github.com/dani-garcia/vaultwarden/discussions/7615#discussioncomment-18140443
+npm install -g @bitwarden/cli@2026.6
+
 npx aliajs new
 ```
 
@@ -78,6 +70,10 @@ npx aliajs new
 <TabItem label="ERPNext">
 
 ```sh
+# Specific version context
+# https://github.com/dani-garcia/vaultwarden/discussions/7615#discussioncomment-18140443
+npm install -g @bitwarden/cli@2026.6
+
 # AliaJS works best in an empty directory
 mkdir aliajs
 cd aliajs && git clone git@github.com:jdecaron/aliajs.git && cd aliajs
@@ -88,3 +84,10 @@ npm install && npm run new
 
 </TabItem>
 </Tabs>
+
+### Quick start video (4 minutes)
+<YouTube id="https://youtu.be/wL6RcwOSwdE" posterQuality="max" />
+
+## Social
+Mastodon discussion<br/>
+https://mastodon.social/@jcaron/117333060141664239
